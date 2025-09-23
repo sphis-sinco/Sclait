@@ -1,0 +1,16 @@
+import Object.ObjectCreateEvent;
+
+class DummyObject2 extends Object
+{
+	override public function new()
+	{
+		super('dummy-object-2');
+	}
+
+	override function onCreate(event:ObjectCreateEvent)
+	{
+		super.onCreate(event);
+
+                trace(event.object.toString());
+	}
+}
