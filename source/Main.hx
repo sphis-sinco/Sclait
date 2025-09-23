@@ -24,7 +24,7 @@ class Main extends Sprite
 		}
 		#end
 
-		PolymodHandler.addImports();
+		PolymodHandler.scriptShit();
 		PolymodHandler.loadMods(sysMods);
 		ModuleHandler.loadModules();
 		

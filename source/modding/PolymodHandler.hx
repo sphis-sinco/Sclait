@@ -1,10 +1,38 @@
 package modding;
 
+import events.FocusEvent;
+import events.StateSwitchEvent;
+import flixel.FlxG;
+import modules.ModuleHandler;
 import polymod.Polymod;
 import polymod.format.ParseRules;
+import utils.StateUtils;
 
 class PolymodHandler
 {
+	public static function scriptShit()
+	{
+		FlxG.signals.focusGained.add(() -> ModuleHandler.callEvent(module ->
+		{
+			module.onFocusGained(new FocusEvent(FocusEventType.GAINED));
+		}));
+		FlxG.signals.focusLost.add(() -> ModuleHandler.callEvent(module ->
+		{
+			module.onFocusLost(new FocusEvent(FocusEventType.LOST));
+		}));
+
+		FlxG.signals.preStateSwitch.add(() -> ModuleHandler.callEvent(module ->
+		{
+			module.onStateSwitchPre(new StateSwitchEvent(StateUtils.getCurrentState()));
+		}));
+		FlxG.signals.postStateSwitch.add(() -> ModuleHandler.callEvent(module ->
+		{
+			module.onStateSwitchPost(new StateSwitchEvent(StateUtils.getCurrentState()));
+		}));
+
+		addImports();
+	}
+
 	public static function addImports() {}
 
 	public static function buildParseRules():polymod.format.ParseRules
