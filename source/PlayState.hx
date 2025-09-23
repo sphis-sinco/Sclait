@@ -11,6 +11,11 @@ class PlayState extends FlxState
 	override public function create()
 	{
 		super.create();
+		var objectId:String = 'OBJECT_${Std.random(256)}';
+		var obj:ScriptedObject = ScriptedObject.init('BasicObject', objectId);
+
+		objects.push(obj);
+
 		for (object in objects)
 			object.onCreate(new ObjectCreateEvent(object));
 	}
