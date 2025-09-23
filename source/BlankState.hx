@@ -2,20 +2,30 @@ package;
 
 import events.CreateEvent;
 import events.UpdateEvent;
+import flixel.FlxG;
 import flixel.FlxState;
-import modules.ModuleEvent;
 import modules.ModuleHandler;
 
-class PlayState extends FlxState
+class BlankState extends FlxState
 {
-	public static var instance:PlayState;
+	public static var instance:BlankState = null;
+
+	public var id:String = 'default';
+
+	override public function new(id:String)
+	{
+		super();
+
+		this.id = id;
+
+		if (instance != null)
+			instance = null;
+		instance = this;
+	}
 
 	override public function create()
 	{
 		super.create();
-		if (instance != null)
-			instance = null;
-		instance = this;
 
 		ModuleHandler.callEvent(module ->
 		{
@@ -31,10 +41,12 @@ class PlayState extends FlxState
 			module.onUpdate(new UpdateEvent(module, elapsed));
 		});
 	}
+
 	override function destroy()
 	{
 		super.destroy();
 
 		instance = null;
+		id = 'default';
 	}
 }
