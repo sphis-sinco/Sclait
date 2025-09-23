@@ -1,4 +1,4 @@
-class DummyObject extends Object
+class DummyModule extends Module
 {
 	override public function new()
 	{

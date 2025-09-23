@@ -1,4 +1,4 @@
-class ModdedDummyObject extends Object
+class ModdedDummyModule extends Module
 {
 	override public function new()
 	{

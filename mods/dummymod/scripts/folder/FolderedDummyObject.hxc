@@ -1,4 +1,4 @@
-class FolderedDummyObject extends Object
+class FolderedDummyModule extends Module
 {
 	override public function new()
 	{
