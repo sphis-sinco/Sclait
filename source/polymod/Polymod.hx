@@ -2,7 +2,6 @@ package polymod;
 
 import haxe.Json;
 import haxe.io.Bytes;
-import modding.ScriptExtensions;
 import polymod.backends.IBackend;
 import polymod.backends.PolymodAssetLibrary;
 import polymod.backends.PolymodAssets;
@@ -15,10 +14,10 @@ import thx.semver.Version;
 import thx.semver.VersionRule;
 
 using StringTools;
-
 #if hscript
 import polymod.hscript._internal.PolymodScriptClass;
 #end
+
 #if firetongue
 import firetongue.FireTongue;
 #end
@@ -332,12 +331,16 @@ class Polymod
 			Polymod.notice(PolymodErrorCode.SCRIPT_PARSING, 'Parsing script classes...');
 
 			if (params.loadScriptsAsync)
+			{
 				Polymod.registerAllScriptClassesAsync();
+			}
 			else
+			{
 				Polymod.registerAllScriptClasses();
 
-			var classList = polymod.hscript._internal.PolymodScriptClass.listScriptClasses();
-			Polymod.notice(PolymodErrorCode.SCRIPT_PARSED, 'Parsed and registered ${classList.length} scripted classes.');
+				var classList = polymod.hscript._internal.PolymodScriptClass.listScriptClasses();
+				Polymod.notice(PolymodErrorCode.SCRIPT_PARSED, 'Parsed and registered ${classList.length} scripted classes.');
+			}
 		}
 		#else
 		if (params.useScriptedClasses)
@@ -670,14 +673,7 @@ class Polymod
 			var potentialScripts:Array<String> = Polymod.assetLibrary.list(TEXT);
 			for (textPath in potentialScripts)
 			{
-				var isAScript = false;
-				var extensions = ScriptExtensions.extensions;
-
-				for (ext in extensions)
-					if (textPath.endsWith(ext))
-						isAScript = true;
-
-				if (isAScript)
+				if (textPath.endsWith(PolymodConfig.scriptClassExt))
 				{
 					Polymod.debug('Registering script class "$textPath"');
 					polymod.hscript._internal.PolymodScriptClass.registerScriptClassByPath(textPath);
@@ -701,14 +697,7 @@ class Polymod
 			var potentialScripts:Array<String> = Polymod.assetLibrary.list(TEXT);
 			for (textPath in potentialScripts)
 			{
-				var isAScript = false;
-				var extensions = ScriptExtensions.extensions;
-
-				for (ext in extensions)
-					if (textPath.endsWith(ext))
-						isAScript = true;
-
-				if (isAScript)
+				if (textPath.endsWith(PolymodConfig.scriptClassExt))
 				{
 					Polymod.debug('Registering script class "$textPath"');
 					polymod.hscript._internal.PolymodScriptClass.registerScriptClassByPathAsync(textPath);
