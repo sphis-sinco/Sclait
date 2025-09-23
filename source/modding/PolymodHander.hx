@@ -45,7 +45,7 @@ class PolymodHander
 
 	public static function loadMods(dirs:Array<String>)
 	{
-		var results = Polymod.init({
+		Polymod.init({
 			modRoot: 'mods/',
 			dirs: dirs,
 			errorCallback: onError,
@@ -55,6 +55,7 @@ class PolymodHander
 			framework: OPENFL,
 			parseRules: buildParseRules()
 		});
+
 	}
 
 	public static function onError(error:PolymodError)
