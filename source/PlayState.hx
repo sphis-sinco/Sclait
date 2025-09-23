@@ -16,7 +16,6 @@ class PlayState extends FlxState
 		var scriptedObjects:Array<String> = ScriptedObject.listScriptClasses();
 		for (objectScript in scriptedObjects)
 		{
-			trace('New scripted object: ' + objectScript);
 			var obj:ScriptedObject = ScriptedObject.init(objectScript, objectScript);
 			objects.push(obj);
 		}
