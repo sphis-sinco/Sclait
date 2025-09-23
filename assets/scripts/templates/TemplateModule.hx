@@ -2,11 +2,11 @@ import events.CreateEvent;
 import events.UpdateEvent;
 import modules.Module;
 
-class DummyModule extends Module
+class TemplateModule extends Module
 {
 	override public function new()
 	{
-		super('dummy-object');
+		super('template-module');
 	}
 
 	override function onCreate(event:CreateEvent)
