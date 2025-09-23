@@ -5,10 +5,10 @@ class ModdedDummyModule extends Module
 		super('modded-dummy-object');
 	}
 
-	override function onCreate(event:ObjectCreateEvent)
+	override function onCreate(event:CreateEvent)
 	{
 		super.onCreate(event);
 
-                trace(event.object.toString());
+                trace(event.object);
 	}
 }

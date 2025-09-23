@@ -5,10 +5,10 @@ class DummyModule3 extends Module
 		super('overwriten-dummy-object-3');
 	}
 
-	override function onCreate(event:ObjectCreateEvent)
+	override function onCreate(event:CreateEvent)
 	{
 		super.onCreate(event);
 
-                trace(event.object.toString());
+                trace(event.object);
 	}
 }
