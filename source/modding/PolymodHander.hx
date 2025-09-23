@@ -1,18 +1,15 @@
 package modding;
 
-import events.CreateEvent;
-import events.UpdateEvent;
-import modules.Module;
 import polymod.Polymod;
 
 class PolymodHander
 {
 	public static function addImports()
 	{
-		Polymod.addDefaultImport(Module);
-                
-		Polymod.addDefaultImport(CreateEvent);
-		Polymod.addDefaultImport(UpdateEvent);
+		Polymod.addImportAlias('modules.Module', modules.Module);
+
+		Polymod.addImportAlias('events.CreateEvent', events.CreateEvent);
+		Polymod.addImportAlias('events.UpdateEvent', events.UpdateEvent);
 	}
 
 	public static function loadMods(dirs:Array<String>)

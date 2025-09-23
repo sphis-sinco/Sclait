@@ -1,3 +1,7 @@
+import events.CreateEvent;
+import events.UpdateEvent;
+import modules.Module;
+
 class DummyModule extends Module
 {
 	override public function new()
@@ -9,6 +13,11 @@ class DummyModule extends Module
 	{
 		super.onCreate(event);
 
-		trace(event.object);
+		trace(event.module);
+	}
+
+	override function onUpdate(event:UpdateEvent)
+	{
+		super.onUpdate(event);
 	}
 }
