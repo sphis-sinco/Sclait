@@ -4,9 +4,10 @@ import Object.ObjectCreateEvent;
 import Object.ObjectUpdateEvent;
 import flixel.FlxGame;
 import openfl.display.Sprite;
-import polymod.Polymod.PolymodError;
 import polymod.Polymod;
+#if sys
 import sys.FileSystem;
+#end
 
 class Main extends Sprite
 {
