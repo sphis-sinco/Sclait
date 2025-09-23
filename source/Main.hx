@@ -1,5 +1,7 @@
 package;
 
+import Object.ObjectCreateEvent;
+import Object.ObjectUpdateEvent;
 import flixel.FlxGame;
 import openfl.display.Sprite;
 import polymod.Polymod.PolymodError;
@@ -22,9 +24,14 @@ class Main extends Sprite
 		}
 		#end
 
+		Polymod.addDefaultImport(Object);
+		Polymod.addDefaultImport(ObjectCreateEvent);
+		Polymod.addDefaultImport(ObjectUpdateEvent);
+
 		loadMods(sysMods);
 		addChild(new FlxGame(0, 0, PlayState));
 	}
+
 	private function loadMods(dirs:Array<String>)
 	{
 		var results = Polymod.init({
