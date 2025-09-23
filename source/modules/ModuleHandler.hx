@@ -19,6 +19,7 @@ class ModuleHandler
 		destroyModules();
 
 		var newModules = ScriptedModule.listScriptClasses();
+		trace('Found ${newModules.length} modules to load');
 		for (module in newModules)
 		{
 			var newmod = ScriptedModule.init(module, module);
@@ -33,5 +34,13 @@ class ModuleHandler
 				return module;
 
 		return null;
+	}
+	public static function callEvent(callback:Module->Void)
+	{
+		if (callback == null)
+			return;
+
+		for (module in modules)
+			callback(module);
 	}
 }

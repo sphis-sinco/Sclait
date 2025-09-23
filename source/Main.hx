@@ -1,11 +1,9 @@
 package;
 
-import events.CreateEvent;
-import events.UpdateEvent;
 import flixel.FlxGame;
-import modules.Module;
+import modding.PolymodHander;
+import modules.ModuleHandler;
 import openfl.display.Sprite;
-import polymod.PolymodHander;
 #if sys
 import sys.FileSystem;
 #end
@@ -28,6 +26,8 @@ class Main extends Sprite
 
 		PolymodHander.addImports();
 		PolymodHander.loadMods(sysMods);
+		ModuleHandler.loadModules();
+		
 		addChild(new FlxGame(0, 0, PlayState));
 	}
 }

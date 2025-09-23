@@ -1,4 +1,4 @@
-package polymod;
+package modding;
 
 import events.CreateEvent;
 import events.UpdateEvent;

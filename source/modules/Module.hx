@@ -14,12 +14,14 @@ class Module implements IFlxDestroyable
 		this.id = id;
 	}
 
+	public function toString():String
+		return 'Module($id)';
+
+	// the events
+
 	public function onCreate(event:CreateEvent) {}
 
 	public function onUpdate(event:UpdateEvent) {}
-
-	public function toString():String
-		return 'Module($id)';
 
 	public function destroy() {}
 }
