@@ -3,15 +3,9 @@ package modding;
 import polymod.Polymod;
 import polymod.format.ParseRules;
 
-class PolymodHander
+class PolymodHandler
 {
-	public static function addImports()
-	{
-		Polymod.addImportAlias('modules.Module', modules.Module);
-
-		Polymod.addImportAlias('events.CreateEvent', events.CreateEvent);
-		Polymod.addImportAlias('events.UpdateEvent', events.UpdateEvent);
-	}
+	public static function addImports() {}
 
 	public static function buildParseRules():polymod.format.ParseRules
 	{
@@ -55,7 +49,6 @@ class PolymodHander
 			framework: OPENFL,
 			parseRules: buildParseRules()
 		});
-
 	}
 
 	public static function onError(error:PolymodError)

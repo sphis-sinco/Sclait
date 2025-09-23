@@ -1,7 +1,7 @@
 package;
 
 import flixel.FlxGame;
-import modding.PolymodHander;
+import modding.PolymodHandler;
 import modules.ModuleHandler;
 import openfl.display.Sprite;
 #if sys
@@ -24,8 +24,8 @@ class Main extends Sprite
 		}
 		#end
 
-		PolymodHander.addImports();
-		PolymodHander.loadMods(sysMods);
+		PolymodHandler.addImports();
+		PolymodHandler.loadMods(sysMods);
 		ModuleHandler.loadModules();
 		
 		addChild(new FlxGame(0, 0, PlayState));
