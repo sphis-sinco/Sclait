@@ -1,9 +1,9 @@
-package;
+package modules;
 
 import polymod.hscript.HScriptable;
 import polymod.hscript.HScriptedClass;
 
 @:hscriptClass
-class ScriptedObject extends Object implements HScriptedClass
+class ScriptedModule extends Module implements HScriptedClass
 {
 }

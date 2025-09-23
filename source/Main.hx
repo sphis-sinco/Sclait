@@ -1,10 +1,11 @@
 package;
 
-import Object.ObjectCreateEvent;
-import Object.ObjectUpdateEvent;
+import events.CreateEvent;
+import events.UpdateEvent;
 import flixel.FlxGame;
+import modules.Module;
 import openfl.display.Sprite;
-import polymod.Polymod;
+import polymod.PolymodHander;
 #if sys
 import sys.FileSystem;
 #end
@@ -25,27 +26,8 @@ class Main extends Sprite
 		}
 		#end
 
-		Polymod.addDefaultImport(Object);
-		Polymod.addDefaultImport(ObjectCreateEvent);
-		Polymod.addDefaultImport(ObjectUpdateEvent);
-
-		loadMods(sysMods);
+		PolymodHander.addImports();
+		PolymodHander.loadMods(sysMods);
 		addChild(new FlxGame(0, 0, PlayState));
-	}
-
-	private function loadMods(dirs:Array<String>)
-	{
-		var results = Polymod.init({
-			modRoot: 'mods/',
-			dirs: dirs,
-			errorCallback: onError,
-			ignoredFiles: Polymod.getDefaultIgnoreList(),
-			useScriptedClasses: true,
-		});
-	}
-
-	private function onError(error:PolymodError)
-	{
-		trace('[${error.severity}] (${Std.string(error.code).toUpperCase()}): ${error.message}');
 	}
 }
