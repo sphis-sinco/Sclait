@@ -13,6 +13,8 @@ class Object
 	public function onCreate(event:ObjectCreateEvent) {}
 
 	public function onUpdate(event:ObjectUpdateEvent) {}
+	public function toString():String
+		return 'Object($id)';
 }
 
 class ObjectCreateEvent
@@ -23,6 +25,8 @@ class ObjectCreateEvent
 	{
 		this.object = object;
 	}
+	public function toString():String
+		return 'ObjectCreateEvent(object: $object)';
 }
 
 class ObjectUpdateEvent
@@ -35,4 +39,6 @@ class ObjectUpdateEvent
 		this.object = object;
 		this.elapsed = elapsed;
 	}
+	public function toString():String
+		return 'ObjectUpdateEvent(object: $object, elapsed: $elapsed)';
 }
