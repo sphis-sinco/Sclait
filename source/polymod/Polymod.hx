@@ -2,6 +2,7 @@ package polymod;
 
 import haxe.Json;
 import haxe.io.Bytes;
+import modding.ScriptExtensions;
 import polymod.backends.IBackend;
 import polymod.backends.PolymodAssetLibrary;
 import polymod.backends.PolymodAssets;
@@ -673,7 +674,17 @@ class Polymod
 			var potentialScripts:Array<String> = Polymod.assetLibrary.list(TEXT);
 			for (textPath in potentialScripts)
 			{
-				if (textPath.endsWith(PolymodConfig.scriptClassExt))
+				var isAScript = false;
+				var extensions = ScriptExtensions.extensions;
+
+				for (ext in extensions)
+					if (textPath.endsWith(ext))
+					{
+						isAScript = true;
+						return;
+					}
+
+				if (isAScript)
 				{
 					Polymod.debug('Registering script class "$textPath"');
 					polymod.hscript._internal.PolymodScriptClass.registerScriptClassByPath(textPath);
@@ -698,7 +709,7 @@ class Polymod
 			for (textPath in potentialScripts)
 			{
 				var isAScript = false;
-				var extensions = ['.hxc', '.hx', '.haxe', '.hscript'];
+				var extensions = ScriptExtensions.extensions;
 
 				for (ext in extensions)
 					if (textPath.endsWith(ext))
