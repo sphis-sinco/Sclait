@@ -47,7 +47,7 @@
 		<!-- Turns on additional debug logging. -->
 		<haxedef name="POLYMOD_DEBUG" value="true" />
 		<!-- The file extension to use for script files. -->
-		<haxedef name="POLYMOD_SCRIPT_EXT" value=".hx" />
+		<haxedef name="POLYMOD_SCRIPT_CLASS_EXT" value=".hx" />
 		<!-- Which asset library to use for scripts. -->
 		<haxedef name="POLYMOD_SCRIPT_LIBRARY" value="scripts" />
 		<!-- The base path from which scripts should be accessed. -->
