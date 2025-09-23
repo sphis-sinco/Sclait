@@ -1,5 +1,3 @@
-import Object.ObjectCreateEvent;
-
 class ModdedDummyObject extends Object
 {
 	override public function new()

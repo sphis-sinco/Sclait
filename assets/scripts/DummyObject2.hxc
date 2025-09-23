@@ -1,5 +1,3 @@
-import Object.ObjectCreateEvent;
-
 class DummyObject2 extends Object
 {
 	override public function new()
