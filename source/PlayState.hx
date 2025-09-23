@@ -2,7 +2,9 @@ package;
 
 import Object.ObjectCreateEvent;
 import Object.ObjectUpdateEvent;
+import flixel.FlxG;
 import flixel.FlxState;
+import flixel.math.FlxMath;
 
 class PlayState extends FlxState
 {
@@ -11,7 +13,7 @@ class PlayState extends FlxState
 	override public function create()
 	{
 		super.create();
-		var objectId:String = 'OBJECT_${Std.random(256)}';
+		var objectId:String = 'OBJECT_${Math.random() * 256}';
 		var obj:ScriptedObject = ScriptedObject.init('BasicObject', objectId);
 
 		objects.push(obj);
