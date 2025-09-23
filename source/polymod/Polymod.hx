@@ -332,16 +332,12 @@ class Polymod
 			Polymod.notice(PolymodErrorCode.SCRIPT_PARSING, 'Parsing script classes...');
 
 			if (params.loadScriptsAsync)
-			{
 				Polymod.registerAllScriptClassesAsync();
-			}
 			else
-			{
 				Polymod.registerAllScriptClasses();
 
-				var classList = polymod.hscript._internal.PolymodScriptClass.listScriptClasses();
-				Polymod.notice(PolymodErrorCode.SCRIPT_PARSED, 'Parsed and registered ${classList.length} scripted classes.');
-			}
+			var classList = polymod.hscript._internal.PolymodScriptClass.listScriptClasses();
+			Polymod.notice(PolymodErrorCode.SCRIPT_PARSED, 'Parsed and registered ${classList.length} scripted classes.');
 		}
 		#else
 		if (params.useScriptedClasses)
@@ -679,10 +675,7 @@ class Polymod
 
 				for (ext in extensions)
 					if (textPath.endsWith(ext))
-					{
 						isAScript = true;
-						return;
-					}
 
 				if (isAScript)
 				{
@@ -713,10 +706,7 @@ class Polymod
 
 				for (ext in extensions)
 					if (textPath.endsWith(ext))
-					{
 						isAScript = true;
-						return;
-					}
 
 				if (isAScript)
 				{
