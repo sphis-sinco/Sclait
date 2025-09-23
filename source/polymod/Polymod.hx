@@ -14,10 +14,10 @@ import thx.semver.Version;
 import thx.semver.VersionRule;
 
 using StringTools;
+
 #if hscript
 import polymod.hscript._internal.PolymodScriptClass;
 #end
-
 #if firetongue
 import firetongue.FireTongue;
 #end
@@ -163,7 +163,7 @@ typedef FrameworkParams =
 	 * you can set this up to load core assets from a parent directory!
 	 * Not applicable for file systems which don't use a directory obvs.
 	 */
-	 ?coreAssetRedirect:String
+	?coreAssetRedirect:String
 }
 
 typedef ScanParams =
@@ -330,9 +330,12 @@ class Polymod
 		{
 			Polymod.notice(PolymodErrorCode.SCRIPT_PARSING, 'Parsing script classes...');
 
-			if (params.loadScriptsAsync) {
+			if (params.loadScriptsAsync)
+			{
 				Polymod.registerAllScriptClassesAsync();
-			} else {
+			}
+			else
+			{
 				Polymod.registerAllScriptClasses();
 
 				var classList = polymod.hscript._internal.PolymodScriptClass.listScriptClasses();
@@ -670,7 +673,8 @@ class Polymod
 			var potentialScripts:Array<String> = Polymod.assetLibrary.list(TEXT);
 			for (textPath in potentialScripts)
 			{
-				if (textPath.endsWith(PolymodConfig.scriptClassExt)) {
+				if (textPath.endsWith(PolymodConfig.scriptClassExt))
+				{
 					Polymod.debug('Registering script class "$textPath"');
 					polymod.hscript._internal.PolymodScriptClass.registerScriptClassByPath(textPath);
 				}
@@ -693,7 +697,18 @@ class Polymod
 			var potentialScripts:Array<String> = Polymod.assetLibrary.list(TEXT);
 			for (textPath in potentialScripts)
 			{
-				if (textPath.endsWith(PolymodConfig.scriptClassExt)) {
+				var isAScript = false;
+				var extensions = ['.hxc', '.hx', '.haxe', '.hscript'];
+
+				for (ext in extensions)
+					if (textPath.endsWith(ext))
+					{
+						isAScript = true;
+						return;
+					}
+
+				if (isAScript)
+				{
 					Polymod.debug('Registering script class "$textPath"');
 					polymod.hscript._internal.PolymodScriptClass.registerScriptClassByPathAsync(textPath);
 				}
@@ -731,7 +746,7 @@ class Polymod
 	public static function debug(message:String, ?posInfo:haxe.PosInfos):Void
 	{
 		if (PolymodConfig.debug)
-				trace('[POLYMOD] $message');
+			trace('[POLYMOD] $message');
 	}
 
 	/**
@@ -757,7 +772,8 @@ class Polymod
 	 * @param importAlias The full import path to use as an alias, as a string.
 	 * @param importClass The class type to import instead.
 	 */
-	public static function addImportAlias(importAlias:String, importClass:Class<Dynamic>):Void {
+	public static function addImportAlias(importAlias:String, importClass:Class<Dynamic>):Void
+	{
 		#if hscript
 		PolymodScriptClass.importOverrides.set(importAlias, importClass);
 		#else
@@ -765,7 +781,8 @@ class Polymod
 		#end
 	}
 
-	public static function removeImportAlias(importAlias:String):Void {
+	public static function removeImportAlias(importAlias:String):Void
+	{
 		#if hscript
 		PolymodScriptClass.importOverrides.remove(importAlias);
 		#else
@@ -778,7 +795,8 @@ class Polymod
 	 * @param importClass The class type to import.
 	 * @param importAlias (optional) The alias to use for the import. If not provided, the full class path will be used.
 	 */
-	public static function addDefaultImport(importClass:Class<Dynamic>, ?importAlias:String):Void {
+	public static function addDefaultImport(importClass:Class<Dynamic>, ?importAlias:String):Void
+	{
 		#if hscript
 		PolymodScriptClass.defaultImports.set(importAlias == null ? Type.getClassName(importClass) : importAlias, importClass);
 		#else
@@ -790,7 +808,8 @@ class Polymod
 	 * When a scripted class define an import, you can blacklist it from being imported.
 	 * @param importPath The full import path to blacklist, as a string.
 	 */
-	public static function blacklistImport(importPath:String):Void {
+	public static function blacklistImport(importPath:String):Void
+	{
 		#if hscript
 		addImportAlias(importPath, null);
 		#else
@@ -1244,7 +1263,7 @@ enum abstract PolymodErrorCode(String) from String to String
 	 * - When loading scripts, the target of the HScriptable interface will call `Assets.getText` to read the relevant script file.
 	 * - You will need to import `openfl.util.Assets` on the HScriptable class, even if you don't otherwise use it.
 	 */
-	 var SCRIPT_NO_ASSET_HANDLER:String = 'script_no_asset_handler';
+	var SCRIPT_NO_ASSET_HANDLER:String = 'script_no_asset_handler';
 
 	/**
 	 * You attempted to instantiate a scripted class that was not registered.
