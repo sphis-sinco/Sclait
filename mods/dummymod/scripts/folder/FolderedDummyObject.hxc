@@ -1,0 +1,14 @@
+class FolderedDummyObject extends Object
+{
+	override public function new()
+	{
+		super('foldered-dummy-object');
+	}
+
+	override function onCreate(event:ObjectCreateEvent)
+	{
+		super.onCreate(event);
+
+		trace(event.object.toString());
+	}
+}

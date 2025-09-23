@@ -1,0 +1,14 @@
+class DummyObject3 extends Object
+{
+	override public function new()
+	{
+		super('dummy-object-3');
+	}
+
+	override function onCreate(event:ObjectCreateEvent)
+	{
+		super.onCreate(event);
+
+                trace(event.object.toString());
+	}
+}
