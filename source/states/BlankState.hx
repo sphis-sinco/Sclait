@@ -1,4 +1,4 @@
-package;
+package states;
 
 import events.CreateEvent;
 import events.UpdateEvent;
@@ -17,15 +17,17 @@ class BlankState extends FlxState
 		super();
 
 		this.id = id;
-
-		if (instance != null)
-			instance = null;
-		instance = this;
 	}
 
 	override public function create()
 	{
 		super.create();
+
+		id ??= 'default';
+
+		if (instance != null)
+			instance = null;
+		instance = this;
 
 		ModuleHandler.callEvent(module ->
 		{

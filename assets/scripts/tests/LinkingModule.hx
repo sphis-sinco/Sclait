@@ -1,6 +1,4 @@
-import events.CreateEvent;
 import events.FocusEvent;
-import events.UpdateEvent;
 import modules.Module;
 import modules.ModuleHandler;
 

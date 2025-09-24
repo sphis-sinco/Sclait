@@ -28,6 +28,6 @@ class Main extends Sprite
 		PolymodHandler.loadMods(sysMods);
 		ModuleHandler.loadModules();
 		
-		addChild(new FlxGame(0, 0, BlankState));
+		addChild(new FlxGame(0, 0, states.BlankState));
 	}
 }
