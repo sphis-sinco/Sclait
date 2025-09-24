@@ -14,7 +14,7 @@ class LinkingModule extends Module
 		super.onFocusGained(event);
 
 		var mtl = ModuleHandler.getModule('module-to-link');
-		mtl.scriptSet('linked', !mtl.scriptGet('linked'));
+		mtl.linked = !mtl.linked;
 
 	}
 }
