@@ -7,11 +7,19 @@ import modules.ModuleHandler;
 import polymod.Polymod;
 import polymod.format.ParseRules;
 import utils.StateUtils;
+#if sys
+import sys.FileSystem;
+#end
 
 class PolymodHandler
 {
 	public static function scriptShit()
 	{
+		FlxG.signals.focusGained.removeAll();
+		FlxG.signals.focusLost.removeAll();
+		FlxG.signals.preStateSwitch.removeAll();
+		FlxG.signals.postStateSwitch.removeAll();
+
 		FlxG.signals.focusGained.add(() -> ModuleHandler.callEvent(module ->
 		{
 			module.onFocusGained(new FocusEvent(FocusEventType.GAINED));
@@ -82,5 +90,26 @@ class PolymodHandler
 	public static function onError(error:PolymodError)
 	{
 		trace('[${error.severity}] (${Std.string(error.code).toUpperCase()}): ${error.message}');
+	}
+	public static function forceReloadAssets():Void
+	{
+		// Forcibly clear scripts so that scripts can be edited.
+		ModuleHandler.destroyModules();
+		Polymod.clearScripts();
+
+		scriptShit();
+
+		var sysMods = [];
+
+		#if sys
+		for (mod in FileSystem.readDirectory('mods/'))
+		{
+			if (FileSystem.isDirectory('mods/$mod'))
+				sysMods.push(mod);
+		}
+		#end
+
+		loadMods(sysMods);
+		ModuleHandler.loadModules();
 	}
 }

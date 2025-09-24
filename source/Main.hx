@@ -14,19 +14,7 @@ class Main extends Sprite
 	{
 		super();
 
-		var sysMods = [];
-
-		#if sys
-		for (mod in FileSystem.readDirectory('mods/'))
-		{
-			if (FileSystem.isDirectory('mods/$mod'))
-				sysMods.push(mod);
-		}
-		#end
-
-		PolymodHandler.scriptShit();
-		PolymodHandler.loadMods(sysMods);
-		ModuleHandler.loadModules();
+		PolymodHandler.forceReloadAssets();
 		
 		addChild(new FlxGame(0, 0, states.BlankState));
 	}
