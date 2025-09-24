@@ -32,7 +32,8 @@
 	<set name="BUILD_DIR" value="export" />
 
 	<source path="source" />
-	<assets path="assets" />
+	<assets path="assets" exclude="assets/scripts/tests/" unless="debug"/>
+	<assets path="assets" if="debug"/>
 	<assets path="mods" />
 
 	<!-- _______________________________ Libraries ______________________________ -->
