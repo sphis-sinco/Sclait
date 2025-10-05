@@ -1,11 +1,13 @@
 package modding;
 
-import events.FocusEvent;
-import events.StateSwitchEvent;
 import flixel.FlxG;
-import modules.ModuleHandler;
+import flixel.FlxState;
+import modding.events.*;
+import modding.events.FocusEvent;
+import modding.modules.*;
 import polymod.Polymod;
 import polymod.format.ParseRules;
+import states.*;
 import utils.StateUtils;
 #if sys
 import sys.FileSystem;
@@ -15,33 +17,40 @@ class PolymodHandler
 {
 	public static function scriptShit()
 	{
-		FlxG.signals.focusGained.removeAll();
-		FlxG.signals.focusLost.removeAll();
-		FlxG.signals.preStateSwitch.removeAll();
-		FlxG.signals.postStateSwitch.removeAll();
-
-		FlxG.signals.focusGained.add(() -> ModuleHandler.callEvent(module ->
+		var focusGained = function() ModuleHandler.callEvent(module ->
 		{
 			module.onFocusGained(new FocusEvent(FocusEventType.GAINED));
-		}));
-		FlxG.signals.focusLost.add(() -> ModuleHandler.callEvent(module ->
+		});
+		var focusLost = function() ModuleHandler.callEvent(module ->
 		{
-			module.onFocusLost(new FocusEvent(FocusEventType.LOST));
-		}));
-
-		FlxG.signals.preStateSwitch.add(() -> ModuleHandler.callEvent(module ->
+			module.onFocusGained(new FocusEvent(FocusEventType.GAINED));
+		});
+		var preStateSwitch = function() ModuleHandler.callEvent(module ->
 		{
 			module.onStateSwitchPre(new StateSwitchEvent(StateUtils.getCurrentState()));
-		}));
-		FlxG.signals.postStateSwitch.add(() -> ModuleHandler.callEvent(module ->
+		});
+		var postStateSwitch = function() ModuleHandler.callEvent(module ->
 		{
 			module.onStateSwitchPost(new StateSwitchEvent(StateUtils.getCurrentState()));
-		}));
+		});
+
+		if (!FlxG.signals.focusGained.has(() -> focusGained))
+			FlxG.signals.focusGained.add(() -> focusGained);
+		if (!FlxG.signals.focusLost.has(() -> focusLost))
+			FlxG.signals.focusLost.add(() -> focusLost);
+		if (!FlxG.signals.preStateSwitch.has(() -> preStateSwitch))
+			FlxG.signals.preStateSwitch.add(() -> preStateSwitch);
+		if (!FlxG.signals.postStateSwitch.has(() -> postStateSwitch))
+			FlxG.signals.postStateSwitch.add(() -> postStateSwitch);
 
 		addImports();
 	}
 
-	public static function addImports() {}
+	public static function addImports()
+	{
+		Polymod.addDefaultImport(BlankState);
+		Polymod.addDefaultImport(ModuleState);
+	}
 
 	public static function buildParseRules():polymod.format.ParseRules
 	{
@@ -91,11 +100,15 @@ class PolymodHandler
 	{
 		trace('[${error.severity}] (${Std.string(error.code).toUpperCase()}): ${error.message}');
 	}
+
 	public static function forceReloadAssets():Void
 	{
 		// Forcibly clear scripts so that scripts can be edited.
 		ModuleHandler.destroyModules();
 		Polymod.clearScripts();
+
+		var currentState:FlxState = FlxG.state;
+		// FlxG.switchState(() -> new BlankState('' + FlxG.random.int(FlxMath.MIN_VALUE_INT)));
 
 		scriptShit();
 
@@ -111,5 +124,7 @@ class PolymodHandler
 
 		loadMods(sysMods);
 		ModuleHandler.loadModules();
+		FlxG.resetState();
+		// FlxG.switchState(() -> currentState);
 	}
 }

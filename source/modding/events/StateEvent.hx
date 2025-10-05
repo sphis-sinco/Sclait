@@ -1,4 +1,4 @@
-package events;
+package modding.events;
 
 class StateEvent
 {

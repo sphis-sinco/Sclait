@@ -4,7 +4,7 @@
 
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="Sclait" file="sclait" main="Main" version="1.0.2" company="Sphis" />
+	<app title="Sclait" file="sclait" main="Main" version="1.1.0" company="Sphis" />
 
 	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
 		or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"-->
@@ -29,7 +29,8 @@
 
 	<!-- _____________________________ Path Settings ____________________________ -->
 
-	<set name="BUILD_DIR" value="export" />
+	<set name="BUILD_DIR" value="export/debug" if="debug"/>
+	<set name="BUILD_DIR" value="export/release" unless="debug"/>
 
 	<source path="source" />
 	<assets path="assets" exclude="assets/scripts/tests/" unless="TEST_SCRIPTS"/>
@@ -52,7 +53,7 @@
 		<!-- Which asset library to use for scripts. -->
 		<haxedef name="POLYMOD_SCRIPT_LIBRARY" value="scripts" />
 		<!-- The base path from which scripts should be accessed. -->
-		<haxedef name="POLYMOD_ROOT_PATH" value="scripts/" />
+		<haxedef name="POLYMOD_ROOT_PATH" value="" />
 		<!-- Determines the subdirectory of the mod folder used for file appending. -->
 		<haxedef name="POLYMOD_APPEND_FOLDER" value="_append" />
 		<!-- Determines the subdirectory of the mod folder used for file merges. -->

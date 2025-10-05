@@ -1,10 +1,10 @@
-package modules;
+package modding.modules;
 
-import events.CreateEvent;
-import events.FocusEvent;
-import events.StateSwitchEvent;
-import events.UpdateEvent;
 import flixel.util.FlxDestroyUtil.IFlxDestroyable;
+import modding.events.CreateEvent;
+import modding.events.FocusEvent;
+import modding.events.StateSwitchEvent;
+import modding.events.UpdateEvent;
 
 class Module implements IFlxDestroyable
 {
@@ -17,7 +17,7 @@ class Module implements IFlxDestroyable
 	}
 
 	public function toString():String
-		return 'Module(module: $id)';
+		return 'Module(id: $id)';
 
 	// the events
 
