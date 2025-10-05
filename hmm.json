@@ -50,8 +50,8 @@
       "name": "polymod",
       "type": "git",
       "dir": null,
-      "ref": "47d9a2775e3fd8f6dd17d6f4b99b8798709da435",
-      "url": "https://github.com/larsiusprime/polymod"
+      "ref": "hashlink-fixes",
+      "url": "https://github.com/NotHyper-474/polymod/"
     },
     {
       "name": "thx.core",
