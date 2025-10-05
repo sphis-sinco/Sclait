@@ -13,6 +13,6 @@ class InitState extends FlxState
 
 		PolymodHandler.forceReloadAssets();
 
-		FlxG.switchState(() -> new PlayState());
+		// FlxG.switchState(() -> new PlayState());
 	}
 }
