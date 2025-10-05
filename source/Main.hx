@@ -1,11 +1,8 @@
 package;
 
 import flixel.FlxGame;
-import modding.PolymodHandler;
 import openfl.display.Sprite;
-#if sys
-import sys.FileSystem;
-#end
+import states.InitState;
 
 class Main extends Sprite
 {
@@ -13,8 +10,6 @@ class Main extends Sprite
 	{
 		super();
 
-		PolymodHandler.forceReloadAssets();
-		
-		addChild(new FlxGame(0, 0, states.BlankState));
+		addChild(new FlxGame(0, 0, InitState));
 	}
 }

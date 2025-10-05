@@ -1,12 +1,12 @@
 package modding;
 
 import flixel.FlxG;
-import flixel.FlxState;
 import modding.events.*;
 import modding.events.FocusEvent;
 import modding.modules.*;
 import polymod.Polymod;
 import polymod.format.ParseRules;
+import polymod.fs.ZipFileSystem;
 import states.*;
 import utils.StateUtils;
 #if sys
@@ -15,6 +15,9 @@ import sys.FileSystem;
 
 class PolymodHandler
 {
+	// Use SysZipFileSystem on native and MemoryZipFilesystem on web.
+	public static var modFileSystem:Null<ZipFileSystem> = null;
+
 	public static function scriptShit()
 	{
 		var focusGained = function() ModuleHandler.callEvent(module ->
@@ -92,7 +95,8 @@ class PolymodHandler
 			useScriptedClasses: true,
 			loadScriptsAsync: #if html5 true #else false #end,
 			framework: OPENFL,
-			parseRules: buildParseRules()
+			parseRules: buildParseRules(),
+			customFilesystem: modFileSystem,
 		});
 	}
 
@@ -101,30 +105,50 @@ class PolymodHandler
 		trace('[${error.severity}] (${Std.string(error.code).toUpperCase()}): ${error.message}');
 	}
 
+	public static function buildFileSystem():polymod.fs.ZipFileSystem
+	{
+		polymod.Polymod.onError = onError;
+		return new ZipFileSystem({
+			modRoot: 'mods/',
+			autoScan: true
+		});
+	}
+
+	public static function getAllMods():Array<ModMetadata>
+	{
+		trace('Scanning the mods folder...');
+
+		var modMetadata:Array<ModMetadata> = Polymod.scan({
+			modRoot: 'mods/',
+			// apiVersionRule: API_VERSION_RULE,
+			fileSystem: modFileSystem,
+			errorCallback: onError
+		});
+		trace('Found ${modMetadata.length} mods when scanning.');
+		return modMetadata;
+	}
+
+	public static function getAllModIds():Array<String>
+	{
+		var modIds:Array<String> = [for (i in getAllMods()) i.id];
+		return modIds;
+	}
+
 	public static function forceReloadAssets():Void
 	{
+		if (modFileSystem == null)
+			modFileSystem = buildFileSystem();
+
 		// Forcibly clear scripts so that scripts can be edited.
 		ModuleHandler.destroyModules();
 		Polymod.clearScripts();
 
-		var currentState:FlxState = FlxG.state;
-		// FlxG.switchState(() -> new BlankState('' + FlxG.random.int(FlxMath.MIN_VALUE_INT)));
-
 		scriptShit();
 
-		var sysMods = [];
-
-		#if sys
-		for (mod in FileSystem.readDirectory('mods/'))
-		{
-			if (FileSystem.isDirectory('mods/$mod'))
-				sysMods.push(mod);
-		}
-		#end
-
-		loadMods(sysMods);
+		loadMods(getAllModIds());
 		ModuleHandler.loadModules();
-		FlxG.resetState();
-		// FlxG.switchState(() -> currentState);
+
+		if (FlxG.state != null)
+			FlxG.resetState();
 	}
 }
