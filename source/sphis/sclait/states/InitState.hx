@@ -1,9 +1,8 @@
-package states;
+package sphis.sclait.states;
 
 import flixel.FlxG;
 import flixel.FlxState;
-import modding.PolymodHandler;
-// import states.play.PlayState;
+import sphis.sclait.modding.PolymodHandler;
 
 class InitState extends FlxState
 {
@@ -12,7 +11,5 @@ class InitState extends FlxState
 		super.create();
 
 		PolymodHandler.forceReloadAssets();
-
-		// FlxG.switchState(() -> new PlayState());
 	}
 }

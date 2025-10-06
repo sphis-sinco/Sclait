@@ -1,4 +1,4 @@
-package modding.events;
+package sphis.sclait.modding.events;
 
 class StateSwitchEvent extends StateEvent
 {

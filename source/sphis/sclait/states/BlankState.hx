@@ -1,4 +1,4 @@
-package states;
+package sphis.sclait.states;
 
 class BlankState extends ModuleState
 {

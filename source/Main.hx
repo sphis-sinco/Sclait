@@ -2,7 +2,6 @@ package;
 
 import flixel.FlxGame;
 import openfl.display.Sprite;
-import states.InitState;
 
 class Main extends Sprite
 {
@@ -10,6 +9,6 @@ class Main extends Sprite
 	{
 		super();
 
-		addChild(new FlxGame(0, 0, InitState));
+		addChild(new FlxGame(0, 0, sphis.sclait.states.InitState));
 	}
 }

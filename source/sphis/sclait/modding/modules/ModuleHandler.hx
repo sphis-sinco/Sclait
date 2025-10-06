@@ -1,4 +1,4 @@
-package modding.modules;
+package sphis.sclait.modding.modules;
 
 class ModuleHandler
 {

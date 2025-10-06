@@ -1,4 +1,4 @@
-package utils;
+package sphis.sclait.utils;
 
 import flixel.FlxG;
 

@@ -1,6 +1,6 @@
-package modding.modules;
+package sphis.sclait.modding.modules;
 
-import modding.events.StateEvent;
+import sphis.sclait.modding.events.StateEvent;
 
 class ModuleEvent extends StateEvent
 {

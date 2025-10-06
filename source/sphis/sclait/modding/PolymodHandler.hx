@@ -1,14 +1,14 @@
-package modding;
+package sphis.sclait.modding;
 
 import flixel.FlxG;
-import modding.events.*;
-import modding.events.FocusEvent;
-import modding.modules.*;
 import polymod.Polymod;
 import polymod.format.ParseRules;
 import polymod.fs.ZipFileSystem;
-import states.*;
-import utils.StateUtils;
+import sphis.sclait.modding.events.*;
+import sphis.sclait.modding.events.FocusEvent;
+import sphis.sclait.modding.modules.*;
+import sphis.sclait.states.*;
+import sphis.sclait.utils.StateUtils;
 #if sys
 import sys.FileSystem;
 #end
